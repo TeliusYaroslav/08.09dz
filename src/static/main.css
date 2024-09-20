@@ -19,3 +19,26 @@ a {
 p {
     text-align: center;
 }
+
+
+
+.post {
+    width: 600px;
+    height: 200px;
+    background-color: pink;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+#postss{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: lightgray;
+}
