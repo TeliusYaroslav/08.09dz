@@ -1,0 +1,30 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="posts">
+        <% if (error) { %>
+          <h1><%= error %></h1>
+          <a href="/post/">Назад к списку постов</a>
+        <% } else { %>
+          <h1>
+            Name: <%= posts.name %>
+          </h1>
+          <p>
+            Time send: <%= posts.time %>
+          </p>
+          <p>
+            Description: <%= posts.description %>
+          </p>
+          <p>
+            Author: <%= posts.author %>
+          </p>
+          <a href="/post/">Назад к списку постов</a>
+        <% } %>
+      </div>
+</body>
+</html>

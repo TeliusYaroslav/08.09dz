@@ -42,3 +42,43 @@ p {
     margin: 0;
     background-color: lightgray;
 }
+
+
+
+
+.posts {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    background-color: #67f36e;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    width: 400px; 
+    padding: 20px; 
+    margin: 20px auto; 
+  }
+  
+ 
+  .posts h1 {
+    font-size: 24px; 
+    color: #343a40; 
+    margin-bottom: 15px; 
+  }
+  
+  
+  .posts p {
+    font-size: 16px; 
+    color: #495057; 
+    margin-bottom: 10px; 
+    text-align: center; 
+  }
+  
+  .posts a {
+    margin-top: 20px; 
+    font-size: 14px; 
+    color: #007bff; 
+    text-decoration: none; 
+  }
+  
+  
