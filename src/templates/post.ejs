@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/main.css">
+    <script src="/static/posts.js" defer></script>
     <title>Document</title>
 </head>
 <body id = "postss">
-    <% if (posts && posts.length > 0)  %>
-        <div class = "post">
-          <p>Author: <%= posts[0].author %></p>
-          <p>Post: <%= posts[0].name %></p>
-        </div>
-    
-        <div class = "post">
-          <p>Author: <%= posts[1].author %></p>
-          <p>Post: <%= posts[1].name %></p>
-        </div>
+  <% if (posts && posts.length > 0) { %>
+    <% posts.forEach(function(post) { %>
+      <div class="post">
+        <p>Author: <%= post.author %></p>
+        <p>Post: <%= post.name %></p>
+        <p>Description: <%= post.description %></p>
+        <p>Time:<%= post.time %></p>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <p>No posts available.</p>
+  <% } %>
+  <button id = "createButton">create chto to</button>
 </body>
 </html>

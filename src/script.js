@@ -9,7 +9,7 @@ const PORT = 8000
 
 app.set("view engine", "ejs")
 app.set("views", path.resolve(__dirname, "./templates"))
-
+app.use(express.json())
 
 app.use("/static/", express.static(path.resolve(__dirname, "./static")))
 
@@ -21,12 +21,6 @@ app.get('/index/', (req, res) => {
     res.sendFile(path.resolve(__dirname, "./templates/index.html"))
 })
 
-app.get("/post", (req, res) => {
-    const context = {
-        posts: [{name:"post1",author:"Author1"},
-                {name:"post2",author:"Author2"}]};
-    res.render("post", context)
-})
 
 const posts = [
     {
@@ -51,6 +45,14 @@ const posts = [
         author:"Author3"
     },
 ]
+
+
+app.get('/post', (req, res) => {
+    res.render('post', {posts});
+  });
+
+
+
 app.get('/posts/:id', (req, res) => {
     const id = req.params.id
     if (id > 0 && id <= posts.length) {
@@ -61,16 +63,12 @@ app.get('/posts/:id', (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
+app.post("/postes/create", (req,res)=>{
+    console.log(req.body);
+    const postse = req.body
+    posts.push({ name: postse.name, description: postse.description, author: postse.author });
+    res.send("bobr")
+})
 
 
 app.listen(PORT,HOST,()=>{
