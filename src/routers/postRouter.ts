@@ -5,15 +5,16 @@
 // Это улучшает читаемость кода, а также позволяет проще добавлять новые маршруты в будущем.
 
 
+import express , {Router} from "express"
+import {getDate,getPosts,getPostById,createPost} from "../controllers/postControllers"
 
-const express = require("express")
-const controller = require("../controllers/postControllers")
+const router:Router = Router()
 
-const router = express.Router()
-
-router.get("/date", controller.getDate)
-router.get("/post", controller.getPosts)
-router.get("/posts/:id", controller.getPostById)
-router.post("/postes/create", controller.createPost)
-
+router.get("/date", getDate)
+router.get("/post", getPosts)
+router.get("/posts/:id", getPostById)
+router.post("/postes/create", createPost)
+// 
 module.exports = router
+
+export default router 

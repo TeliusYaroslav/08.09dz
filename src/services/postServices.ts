@@ -4,10 +4,13 @@
 //Это помогает разделить логику в контроллере от логики обработки запросов
 //Сервисы можно легко тестировать и модифицировать без необходимости изменять контроллеры или маршруты
  
+import moment from "moment";
 
-const moment = require("moment");
-
-let posts = [
+let posts:{id: number,
+            name:string,
+            time:string,
+            description:string,
+            author:string}[] = [
     {
         id: 1,
         name: 'post1',
@@ -39,15 +42,23 @@ function getAllPosts() {
     return posts;
 }
 
-function getPostById(id) {
+function getPostByIdServices(id:number) {
     if (id > 0 && id <= posts.length) {
         return { post: posts[id - 1], error: null }//без этого null у меня выводилась ошибка но не выводились данные нормальных id жаловалось что не может найти этот тип данных
     }
     return { error: "Такого поста не существует" }
 }
+function createPostService(post:{id: number,
+    name:string,
+    time:string,
+    description:string,
+    author:string}){
+    posts.push(post)
+}
 
-module.exports = {
+export {
     getCurrentDate,
     getAllPosts,
-    getPostById
+    getPostByIdServices,
+    createPostService
 };

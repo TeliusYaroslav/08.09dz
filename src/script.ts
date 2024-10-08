@@ -1,15 +1,16 @@
-const moment = require("moment")
-const express = require("express")
-const path = require("path")
-
-const router = require("./routers/postRouter");
 
 
+import express,{Express} from "express"
+import path from "path"
 
-const app = express()
 
-const HOST = 'localhost' 
-const PORT = 8000
+// 
+import router from "./routers/postRouter"
+
+const app:Express = express()
+
+const HOST:string = 'localhost' 
+const PORT:number = 8000
 
 app.set("view engine", "ejs")
 
