@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
 }
 
 datasource db {
@@ -19,4 +20,6 @@ model Posts{
   time Int
   description String?
   author String
+  comments    Comment[]
   }
+

@@ -12,9 +12,8 @@ const router:Router = Router()
 
 router.get("/date", getDate)
 router.get("/post", getPosts)
-router.get("/posts/:id", getPostById)
 router.post("/postes/create", createPost)
-// 
+router.get("/posts/:id", getPostById)
 module.exports = router
 
 export default router 

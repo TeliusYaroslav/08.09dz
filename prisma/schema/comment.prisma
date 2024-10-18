@@ -1,0 +1,8 @@
+model Comment {
+  id       Int      @id @default(autoincrement())
+  title    String
+  body     String
+  img String?  
+  postId   Int
+  post     Posts    @relation(fields: [postId], references: [id]) 
+}
