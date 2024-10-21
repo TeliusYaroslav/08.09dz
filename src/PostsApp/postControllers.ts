@@ -3,7 +3,7 @@
 //  Контроллеры разделяют логику приложения 
  
 import {Request, Response} from "express"
-import { getCurrentDate,getAllPosts,getPostByIdServices, createPostService } from "../services/postServices"
+import { getCurrentDate,getAllPosts,getPostByIdServices, createPostService } from "./postServices"
 
 
 function getDate(req:Request, res:Response) {

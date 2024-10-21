@@ -6,7 +6,7 @@
 
 
 import express , {Router} from "express"
-import {getDate,getPosts,getPostById,createPost} from "../controllers/postControllers"
+import {getDate,getPosts,getPostById,createPost} from "../PostsApp/postControllers"
 
 const router:Router = Router()
 

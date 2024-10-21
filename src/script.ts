@@ -5,7 +5,7 @@ import path from "path"
 
 
 // 
-import router from "./routers/postRouter"
+import router from './PostsApp/postRouter'
 
 const app:Express = express()
 
