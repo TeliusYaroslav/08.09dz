@@ -14,12 +14,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Posts{
-  id Int @id @default(autoincrement())
-  name String
-  time Int
+model Posts {
+  id          Int    @id @default(autoincrement())
+  name        String
+  time        Int
   description String?
-  author String
+  author      String
+  userId      Int?  // Поле для связи с пользователем
+  user        User? @relation("UserPosts", fields: [userId], references: [id]) // Обратная связь
   comments    Comment[]
-  }
-
+}
