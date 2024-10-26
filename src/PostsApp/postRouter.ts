@@ -14,6 +14,6 @@ router.get("/date", getDate)
 router.get("/post", getPosts)
 router.post("/postes/create", createPost)
 router.get("/posts/:id", getPostById)
-module.exports = router
+
 
 export default router 
