@@ -62,8 +62,6 @@ async function authRegistration(req: Request, res: Response) {
         res.cookie('user', JSON.stringify({ email: newUser.email, role: newUser.role }), { httpOnly: true }) 
 
         res.locals.user = { email: newUser.email, role: newUser.role } 
-
-
         res.status(201).json({ email: newUser.email, role: newUser.role }) 
     } catch (error) {
         console.error('Ошибка при регистрации:', error) 

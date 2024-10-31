@@ -1,31 +1,19 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= post.name %></title>
     <link rel="stylesheet" href="/static/main.css">
-    <script src="/static/posts.js" defer></script>
-    <title>Document</title>
 </head>
 <body>
-    <div class="posts">
-        <% if (error) { %>
-          <h1><%= error %></h1>
-          <a href="/post/">Назад к списку постов</a>
-        <% } else { %>
-          <h1>
-            Name: <%= posts.name %>
-          </h1>
-          <p>
-            Time send: <%= posts.time %>
-          </p>
-          <p>
-            Description: <%= posts.description %>
-          </p>
-          <p>
-            Author: <%= posts.author %>
-          </p>
-          <a href="/post/">Назад к списку постов</a>
-        <% } %>
-      </div>
+    <header>
+        <h1><%= post.name %></h1>
+        <a href="/posts">Back to All Posts</a>
+    </header>
+    <main>
+        <p><%= post.description %></p>
+        <small>Author: <%= post.author %></small>
+        <p>Posted at: <%= new Date(post.time * 1000).toLocaleString() %></p>
+    </main>
 </body>
 </html>

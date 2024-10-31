@@ -5,15 +5,13 @@
 // Это улучшает читаемость кода, а также позволяет проще добавлять новые маршруты в будущем.
 
 
-import express , {Router} from "express"
-import {getDate,getPosts,getPostById,createPost} from "../PostsApp/postControllers"
+import { Router } from "express" 
+import * as postController from "./postControllers" 
 
-const router:Router = Router()
+const router = Router() 
 
-router.get("/date", getDate)
-router.get("/post", getPosts)
-router.post("/postes/create", createPost)
-router.get("/posts/:id", getPostById)
-
+router.get("/", postController.getPosts)
+router.get("/:id", postController.getPostById)
+router.post("/", postController.createPost)  
 
 export default router 

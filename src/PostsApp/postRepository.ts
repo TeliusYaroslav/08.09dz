@@ -1,65 +1,18 @@
-import { PrismaClient, Prisma } from '@prisma/client' 
-import moment from 'moment' 
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient()
 
-const client = new PrismaClient() 
-
-function getCurrentDate() {
-    return moment().format("YYYY/MM/DD HH:mm:ss") 
+export async function getAllPosts() {
+    return await prisma.posts.findMany()
 }
 
-async function getAllPosts(max?: number) {
-    try {
-        const posts = await client.posts.findMany({
-            take: max
-        }) 
-        return posts 
-    } catch (err) {
-
-        if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            console.error(`Ошибка Prisma: ${err.code} - ${err.message}`) 
-            throw new Error('Ошибка при получении постов') 
-        } else {
-            throw new Error('Ошибка при получении постов') 
-        }
-    }
+export async function getPostById(id: number) {
+    return await prisma.posts.findUnique({
+        where: { id },
+    }) 
 }
 
-async function getPostByIdServices(id: number) {
-    try {
-        const post = await client.posts.findUnique({
-            where: { id: id },
-        }) 
-
-        if (post) {
-            return { post, error: null } 
-        }
-        return { error: "Такого поста не существует" } 
-    } catch (err) {
-        if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            return { post: null, error: 'Ошибка при получении поста' } 
-        }
-        return { post: null, error: 'мы такое не знаем' } 
-    }
+export async function createPost(postData: { name: string; description?: string; author: string; time: number }) {
+    return await prisma.posts.create({
+        data: postData,
+    })
 }
-
-
-async function createPostService(data: Prisma.PostsCreateInput) {
-    try {
-        const post = await client.posts.create({
-            data: data,
-        }) 
-        return post 
-    } catch (err) {
-        if (err instanceof Prisma.PrismaClientKnownRequestError) {
-            throw new Error('Ошибка при создании поста') 
-        } else {
-            throw new Error('Ошибка при создании поста') 
-        }
-    }
-}
-
-const postsRepository= {getCurrentDate,
-                    getAllPosts,
-                    getPostByIdServices,
-                    createPostService}
-export default postsRepository

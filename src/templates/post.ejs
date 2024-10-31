@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Posts</title>
     <link rel="stylesheet" href="/static/main.css">
-    <script src="/static/posts.js" defer></script>
-    <title>Document</title>
 </head>
-<body id = "postss">
-  <% if (posts && posts.length > 0) { %>
-    <% posts.forEach(function(post) { %>
-      <div class="post">
-        <p>Author: <%= post.author %></p>
-        <p>Post: <%= post.name %></p>
-        <p>Description: <%= post.description %></p>
-        <p>Time:<%= post.time %></p>
-      </div>
-    <% }); %>
-  <% } else { %>
-    <p>No posts available.</p>
-  <% } %>
-  <button id = "createButton">create chto to</button>
+<body>
+    <header>
+        <h1>All Posts</h1>
+        <a href="/profile">Profile</a>
+        <button id="createButton">Create New Post</button>
+    </header>
+    <main>
+        <ul>
+            <% posts.forEach(post => { %>
+                <li>
+                    <a href="/posts/<%= post.id %>"><%= post.name %></a>
+                    <p><%= post.description %></p>
+                    <small>Author: <%= post.author %></small>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+    <script src="/static/posts.js"></script> 
 </body>
 </html>

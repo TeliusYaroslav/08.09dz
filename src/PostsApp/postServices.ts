@@ -1,48 +1,13 @@
-import postsRepository from './postRepository' 
-import { Prisma } from '@prisma/client' 
+import * as postRepository from "./postRepository"
 
-
-const getCurrentDate = postsRepository.getCurrentDate 
-
-
-async function getAllPosts(max?: number) {
-    try {
-        const posts = await postsRepository.getAllPosts(max) 
-        return posts 
-    } catch (error) {
-        console.error('Ошибка при получении постов:', error)
-        throw new Error('Ошибка при получении постов') 
-    }
+export async function getAllPosts() {
+    return await postRepository.getAllPosts()
 }
 
-
-async function getPostByIdServices(id: number) {
-    try {
-        const { post, error } = await postsRepository.getPostByIdServices(id) 
-        return { post, error } 
-    } catch (error) {
-        console.error('Ошибка при получении поста по ID:', error) 
-        return { post: null, error: 'Неизвестная ошибка' } 
-    }
+export async function getPostByIdServices(id: number) {
+    return await postRepository.getPostById(id)
 }
 
-
-async function createPostService(data: Prisma.PostsCreateInput) {
-    try {
-        const post = await postsRepository.createPostService(data) 
-        return post 
-    } catch (error) {
-        console.error('Ошибка при создании поста:', error)
-        throw new Error('Ошибка при создании поста') 
-    }
+export async function createPostService(postData: { name: string; description?: string; author: string; time: number }) {
+    return await postRepository.createPost(postData)
 }
-
-const postsService = {
-    getCurrentDate,
-    getAllPosts,
-    getPostByIdServices,
-    createPostService,
-} 
-
-export default postsService 
-
