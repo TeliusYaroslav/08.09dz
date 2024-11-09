@@ -60,7 +60,7 @@ async function authRegistration(req: Request, res: Response) {
         res.cookie('token', token, { httpOnly: true, secure: true })
         res.status(201).json({ message: 'Registered successfully' })
     } catch (error) {
-        console.error('Ошибка при регистрации:', error);
+        console.error('Ошибка при регистрации:', error)
         res.status(500).json({ message: 'Internal Server Error' })
     }
 }
