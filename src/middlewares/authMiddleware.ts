@@ -1,19 +1,20 @@
 import { Request, Response, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
 
-function authMiddleware(req: Request, res: Response, next: NextFunction) {
+function authMiddleware(req: Request, res: Response, next: NextFunction): void {
   try {
-    const userCookie = req.cookies.user
-
-    if (userCookie) {
-      const user = JSON.parse(userCookie)
-
-      if (user.email && user.role) {
-        
-        (req as any).user = user
-        return next() 
-      }
+    const token = req.cookies.token
+    if (!token) {
+      res.status(401).json({ message: 'Unauthorized' })
+      return
     }
-    res.status(401).json({ message: 'Unauthorized' })
+    const decoded = jwt.verify(token, 'secret-key') as { email: string; role: string }
+    if (!decoded) {
+      res.status(401).json({ message: 'Unauthorized' })
+      return
+    }
+    (req as any).user = decoded
+    next()
   } catch (error) {
     res.status(401).json({ message: 'Unauthorized' })
   }
