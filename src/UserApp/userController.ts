@@ -6,7 +6,7 @@ import { UserService } from './userService'
 import jwt from 'jsonwebtoken'
 
 const userService = new UserService()
-const JWT_SECRET = 'your_jwt_secret_key'
+const JWT_SECRET = 'verysecretkey'
 function loginUser(req: Request, res: Response) {
     res.render('login')
 }
