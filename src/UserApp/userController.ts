@@ -15,23 +15,17 @@ export async function authUser(req: Request, res: Response) {
   const { email, password } = req.body
 
   if (!email || !password) {
-    res.status(400).json({ message: 'Email and password are required' })
+    res.status(400).json({ message: 'Требуется адрес электронной почты и пароль' })
     return
   }
-  
-  try {
-    const user = await userService.getUserByEmail(email)
 
-    if (user && user.password === password) {
-      const token = userService.generateJWT(user)
-      res.cookie('token', token, { httpOnly: true })
-      res.status(200).json({ token })
-    } else {
-      res.status(401).json({ message: 'Unauthorized' })
-    }
-  } catch (error) {
+  try {
+    const token = await userService.authenticateUser(email, password)
+    res.cookie('token', token, { httpOnly: true })
+    res.status(200).json({ token })
+  } catch (error: any) {
     console.error('Ошибка при авторизации:', error)
-    res.status(500).json({ message: 'Internal Server Error' })
+    res.status(error.status || 500).json({ message: error.message || 'Internal Server Error' })
   }
 }
 
@@ -39,24 +33,16 @@ export async function authRegistration(req: Request, res: Response) {
   const { username, email, password } = req.body
 
   if (!username || !email || !password) {
-    res.status(400).json({ message: 'Username, email, and password are required' })
+    res.status(400).json({ message: 'Требуется имя пользователя, адрес электронной почты и пароль.' })
     return
   }
 
   try {
-    const existingUser = await userService.getUserByEmail(email)
-
-    if (existingUser) {
-      res.status(400).json({ message: 'User already exists' })
-      return
-    }
-
-    const newUser = await userService.registerUser({ username, email, password })
-    const token = userService.generateJWT(newUser)
+    const token = await userService.registerAndAuthenticateUser({ username, email, password })
     res.cookie('token', token, { httpOnly: true })
     res.status(201).json({ token })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Ошибка при регистрации:', error)
-    res.status(500).json({ message: 'Internal Server Error' })
+    res.status(error.status || 500).json({ message: error.message || 'Internal Server Error' })
   }
 }
