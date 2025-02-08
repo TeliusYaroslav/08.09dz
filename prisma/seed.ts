@@ -6,7 +6,7 @@ async function createPost() {
   const post = await prisma.posts.create({
     data: {
       name: 'First Post',
-      time: 120,
+      // time: 120,
       description: 'desepticon',
       author: 'Avatar 1'
     }
@@ -18,9 +18,9 @@ async function createPost() {
 async function createMultiplePosts() {
   const posts = await prisma.posts.createMany({
     data: [
-      { name: 'Post1', time: 60, description: 'desepticon1', author: 'Avatar1' },
-      { name: 'Post2', time: 90, description: 'desepticon2', author: 'Avatar2' },
-      { name: 'Post3', time: 150, description: 'desepticon3', author: 'Avatar3' }
+      // { name: 'Post1', time: 60, description: 'desepticon1', author: 'Avatar1' },
+      // { name: 'Post2', time: 90, description: 'desepticon2', author: 'Avatar2' },
+      // { name: 'Post3', time: 150, description: 'desepticon3', author: 'Avatar3' }
     ]
   })
   console.log(`Was created ${posts.count} posts`)

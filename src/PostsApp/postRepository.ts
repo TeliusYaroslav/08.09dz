@@ -16,3 +16,17 @@ export async function createPost(postData: { name: string; description?: string;
         data: postData,
     })
 }
+
+  export async function getAllPostsWithComments() {
+    return await prisma.posts.findMany({
+      include: { comments: true },
+    })
+  }
+  
+
+  export async function getPostWithCommentsById(id: number) {
+    return await prisma.posts.findUnique({
+      where: { id },
+      include: { comments: true },
+    })
+  }

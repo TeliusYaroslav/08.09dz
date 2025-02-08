@@ -5,6 +5,7 @@ import userRouter from './UserApp/userRouter'
 import postRouter from './PostsApp/postRouter' 
 import authMiddleware from './middlewares/authMiddleware' 
 import userRoleMiddleware from './middlewares/userRoleMiddleware' 
+import commentRouter from './ComentApp/comentRouter'
 
 const app: Express = express() 
 const HOST: string = 'localhost' 
@@ -26,6 +27,7 @@ app.use("/static/", express.static(path.resolve(__dirname, "./static")))
 app.use('/users', userRouter) 
 app.use('/', userRouter) 
 app.use('/posts', authMiddleware, postRouter) 
+app.use('/comments', commentRouter)
 
 app.get('/profile', authMiddleware, (req: Request, res: Response) => {
     const user = (req as any).user 

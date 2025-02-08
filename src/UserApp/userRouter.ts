@@ -3,24 +3,10 @@ import { loginUser, registrationUser, authUser, authRegistration } from './userC
 
 const router = express.Router()
 
+
 router.get('/login', loginUser)
-router.get('/registration', registrationUser)
-
-
-router.post('/login', async (req, res, next) => {
-  try {
-    await authUser(req, res)
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.post('/registration', async (req, res, next) => {
-  try {
-    await authRegistration(req, res)
-  } catch (error) {
-    next(error)
-  }
-})
+router.get('/register', registrationUser)
+router.post('/login', authUser)
+router.post('/register', authRegistration)
 
 export default router
