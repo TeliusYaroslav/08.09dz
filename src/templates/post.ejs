@@ -2,22 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><%= post.name %></title>
+    <title>All Posts</title>
     <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
     <header>
-        <h1><%= post.name %></h1>
-        <a href="/posts">Back to All Posts</a>
+        <h1>All Posts</h1>
+        <a href="/profile">Profile</a>
+        <button id="createButton">Create New Post</button>
     </header>
     <main>
-        <p><%= post.description %></p>
-        <small>Author: <%= post.author %></small>
-        <p>Posted at: <%= new Date(post.time * 1000).toLocaleString() %></p>
-        <h2>Комментарии:</h2>
-            <% comments.forEach(comment => { %>
-                    <strong><%= comment.title %>:</strong> <%= comment.body %>
-            <% }) %>
+        <ul>
+            <% posts.forEach(post => { %>
+                <li>
+                    <a href="/posts/<%= post.id %>"><%= post.name %></a>
+                    <p><%= post.description %></p>
+                    <small>Author: <%= post.author %></small>
+                </li>
+            <% }); %>
+        </ul>
     </main>
+    <script src="/static/posts.js"></script> 
 </body>
 </html>

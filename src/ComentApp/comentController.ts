@@ -2,9 +2,6 @@ import { Request, Response } from 'express'
 import * as commentService from './comentService'
 
 
-// сохдать он создан но отображать лень извинити
-
-
 export async function getAllComments(req: Request, res: Response) {
   try {
     const comments = await commentService.getAllComments()

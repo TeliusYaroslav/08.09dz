@@ -1,69 +1,80 @@
-import { UserRepository, IUserRepository, IUser, IUserCreateData } from './userRepository'
+import { IUserRepository, IUser, IUserCreateData } from './utype';
 import jwt from 'jsonwebtoken'
-import { SECRET_KEY } from "../config/token"
+import { SECRET_KEY } from '../config/token'
+import { UserRepository } from './userRepository'
 
-export interface IUserService {
-    getUserByEmail(email: string): Promise<IUser | null>
-    authenticateUser(email: string, password: string): Promise<string>
-    registerAndAuthenticateUser(userData: IUserCreateData): Promise<string>
-    generateJWT(user: IUser): string
-}
 
-export class UserService implements IUserService {
-    private userRepository: IUserRepository = new UserRepository()
+const userRepository: UserRepository = new UserRepository()
 
-    async getUserByEmail(email: string): Promise<IUser | null> {
+export function getUserByEmail(email: string): Promise<IUser | null> {
+    return new Promise(async (resolve, reject) => {
         if (!email) {
             const error = new Error('Требуется электронная почта') as Error & { status?: number }
             error.status = 400
-            throw error
-        }
-        const user = await this.userRepository.findUserByEmail(email)
-        if (!user) {
-            console.log('Пользователь не найден')
-        } else {
-            console.log(`Найден пользователь: ${user.email}`)
-        }
-        return user
-    }
-
-    async authenticateUser(email: string, password: string): Promise<string> {
-        const user = await this.getUserByEmail(email)
-        if (!user) {
-            const error = new Error('Пользователь не найден') as Error & { status?: number };
-            error.status = 404;
-            throw error;
+            reject(error)
         }
 
-        if (user.password !== password) {
-            const error = new Error('Неверный пароль') as Error & { status?: number };
-            error.status = 401;
-            throw error;
+        try {
+            const user = await userRepository.findUserByEmail(email)
+            if (!user) {
+                console.log('Пользователь не найден')
+            } else {
+                console.log(`Найден пользователь: ${user.email}`)
+            }
+            resolve(user)
+        } catch (err) {
+            reject(err)
         }
-
-        console.log('Успешная аутентификация:', user.email);
-        return this.generateJWT(user);
-    }
-    async registerAndAuthenticateUser(userData: IUserCreateData): Promise<string> {
-        const existingUser = await this.getUserByEmail(userData.email)
-
-        if (existingUser) {
-            const error = new Error('Пользователь уже существует') as Error & { status?: number }
-            error.status = 400
-            throw error
-        }
-
-        const newUser = await this.userRepository.createUser(userData)
-        console.log(`Создан новый пользователь: ${newUser.email}`)
-        return this.generateJWT(newUser)
-    }
-
-    generateJWT(user: IUser): string {
-        const payload = { email: user.email, role: user.role }
-        return jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
-    }
+    })
 }
 
+export function authenticateUser(email: string, password: string): Promise<string> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const user = await getUserByEmail(email)
+            if (!user) {
+                const error = new Error('Пользователь не найден') as Error & { status?: number }
+                error.status = 404
+                reject(error)
+                return
+            }
 
+            if (user.password !== password) {
+                const error = new Error('Неверный пароль') as Error & { status?: number }
+                error.status = 401
+                reject(error)
+                return
+            }
 
-//в разы лучше чем было
+            console.log('Успешная аутентификация:', user.email)
+            resolve(generateJWT(user))
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+
+export function registerAndAuthenticateUser(userData: IUserCreateData): Promise<string> {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const existingUser = await getUserByEmail(userData.email)
+            if (existingUser) {
+                const error = new Error('Пользователь уже существует') as Error & { status?: number }
+                error.status = 400
+                reject(error)
+                return
+            }
+
+            const newUser = await userRepository.createUser(userData)
+            console.log(`Создан новый пользователь: ${newUser.email}`)
+            resolve(generateJWT(newUser))
+        } catch (err) {
+            reject(err)
+        }
+    });
+}
+
+export function generateJWT(user: IUser): string {
+    const payload = { email: user.email, role: user.role }
+    return jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
+}

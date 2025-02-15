@@ -1,7 +1,5 @@
 import { Request, Response } from "express" 
 import * as postService from "./postServices" 
-import * as commentService from "../ComentApp/comentService"
-
 
 export async function getPosts(req: Request, res: Response) {
     try {
@@ -14,22 +12,19 @@ export async function getPosts(req: Request, res: Response) {
 }
 
 export async function getPostById(req: Request, res: Response) {
-    const id = parseInt(req.params.id)
+    const id = parseInt(req.params.id) 
     try {
-        const post = await postService.getPostByIdServices(id)
+        const post = await postService.getPostByIdServices(id) 
         if (post) {
-            
-            const comments = await commentService.getCommentsByPostId(id)
-            res.render('posts', { post, comments })
+            res.render('posts', { post }) 
         } else {
-            res.status(404).send("Post not found")
+            res.status(404).send("Post not found") 
         }
     } catch (error) {
-        console.error("Error retrieving post by ID:", error)
-        res.status(500).send("Error retrieving post")
+        console.error("Error retrieving post by ID:", error) 
+        res.status(500).send("Error retrieving post") 
     }
 }
-
 
 export async function createPost(req: Request, res: Response) {
     try {

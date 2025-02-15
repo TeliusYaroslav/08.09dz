@@ -1,22 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-
-export interface IUser {
-  username: string
-  email: string
-  password: string
-  role: string
-}
-
-export interface IUserRepository {
-  findUserByEmail(email: string): Promise<IUser | null>
-  createUser(userData: IUserCreateData): Promise<IUser>
-}
-
-export interface IUserCreateData {
-  username: string
-  email: string
-  password: string
-}
+import { IUser, IUserCreateData, IUserRepository } from './utype'
 
 const prisma = new PrismaClient()
 
