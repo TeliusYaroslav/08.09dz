@@ -30,3 +30,8 @@ export async function deleteComment(id: number) {
     where: { id },
   })
 }
+export async function getCommentsByPostId(postId: number) {
+  return await prisma.comment.findMany({
+      where: { postId },
+  })
+}

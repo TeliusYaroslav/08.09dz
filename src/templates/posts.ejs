@@ -14,6 +14,15 @@
         <p><%= post.description %></p>
         <small>Author: <%= post.author %></small>
         <p>Posted at: <%= new Date(post.time * 1000).toLocaleString() %></p>
+
+        <h2>Комментарии:</h2>
+        <ul>
+            <% comments.forEach(comment => { %>
+                <li>
+                    <strong><%= comment.title %>:</strong> <%= comment.body %>
+                </li>
+            <% }) %>
+        </ul>
     </main>
 </body>
 </html>

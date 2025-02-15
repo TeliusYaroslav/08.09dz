@@ -19,3 +19,6 @@ export async function updateComment(id: number, data: { title?: string; body?: s
 export async function deleteComment(id: number) {
   return await commentRepository.deleteComment(id)
 }
+export async function getCommentsByPostId(postId: number) {
+  return await commentRepository.getCommentsByPostId(postId)
+}
