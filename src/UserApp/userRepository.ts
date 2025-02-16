@@ -1,28 +1,24 @@
-import { PrismaClient } from '@prisma/client'
-import { IUser, IUserCreateData, IUserRepository } from './utype'
+import { User, CreateUserData} from './utype'
+import {client } from "../client/prismaClient"
 
-const prisma = new PrismaClient()
-
-export class UserRepository implements IUserRepository {
-  async findUserByEmail(email: string): Promise<IUser | null> {
+export async function findByEmail(email: string): Promise<User | null> {
     if (!email) {
-      throw new Error('Email is required')
+        throw new Error('Email is required')
     }
-    const user = await prisma.user.findUnique({
-      where: { email },
-    })
-    return user ? (user as IUser) : null
-  }
+    const user = await client.user.findUnique({
+        where: { email },
+    });
+    return user ? (user as User) : null
+}
 
-  async createUser(userData: IUserCreateData): Promise<IUser> {
-    const user = await prisma.user.create({
-      data: {
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-        role: 'user',
-      },
+export async function createUser(data: CreateUserData): Promise<User> {
+    const user = await client.user.create({
+        data: {
+            username: data.username,
+            email: data.email,
+            password: data.password,
+            role: 'user',
+        },
     })
-    return user as IUser
-  }
+    return user as User
 }

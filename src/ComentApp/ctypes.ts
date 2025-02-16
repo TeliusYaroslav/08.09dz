@@ -1,16 +1,9 @@
-export interface Comment {
-    id: number
-    title: string
-    body: string
-    postId: number
-  }
-  
+import { Prisma } from "@prisma/client"
 
-  export interface CreateCommentData {
-    title: string
-    body: string
-    postId: number
-  }
+export type Comment = Prisma.CommentGetPayload<{}>
+export type CreateCommentData = Prisma.CommentUncheckedCreateInput
+
+
 
   export interface UpdateCommentData {
     title?: string

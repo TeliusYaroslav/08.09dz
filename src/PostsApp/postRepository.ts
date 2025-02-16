@@ -1,17 +1,19 @@
 import { PrismaClient } from "@prisma/client"
+import { CreateCommentData } from "../ComentApp/ctypes"
+import { CreatePostData, Posts } from "./ptypes"
 const prisma = new PrismaClient()
 
 export async function getAllPosts() {
     return await prisma.posts.findMany()
 }
 
-export async function getPostById(id: number) {
+export async function getPostById(id: number){
     return await prisma.posts.findUnique({
         where: { id },
     }) 
 }
 
-export async function createPost(postData: { name: string; description?: string; author: string; time: number }) {
+export async function createPost(postData: CreatePostData) {
     return await prisma.posts.create({
         data: postData,
     })

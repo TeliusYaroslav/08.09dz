@@ -1,31 +1,29 @@
-import { IUserRepository, IUser, IUserCreateData } from './utype';
+import { User, CreateUserData } from './utype'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config/token'
-import { UserRepository } from './userRepository'
+import { findByEmail, createUser } from './userRepository'
 
-
-const userRepository: UserRepository = new UserRepository()
-
-export function getUserByEmail(email: string): Promise<IUser | null> {
+export function getUserByEmail(email: string): Promise<User | null> {
     return new Promise(async (resolve, reject) => {
         if (!email) {
             const error = new Error('Требуется электронная почта') as Error & { status?: number }
             error.status = 400
             reject(error)
+            return
         }
 
         try {
-            const user = await userRepository.findUserByEmail(email)
+            const user = await findByEmail(email);
             if (!user) {
-                console.log('Пользователь не найден')
+                console.log('Пользователь не найден');
             } else {
-                console.log(`Найден пользователь: ${user.email}`)
+                console.log(`Найден пользователь: ${user.email}`);
             }
             resolve(user)
         } catch (err) {
             reject(err)
         }
-    })
+    });
 }
 
 export function authenticateUser(email: string, password: string): Promise<string> {
@@ -51,10 +49,10 @@ export function authenticateUser(email: string, password: string): Promise<strin
         } catch (err) {
             reject(err)
         }
-    })
+    });
 }
 
-export function registerAndAuthenticateUser(userData: IUserCreateData): Promise<string> {
+export function registerAndAuthenticateUser(userData: CreateUserData): Promise<string> {
     return new Promise(async (resolve, reject) => {
         try {
             const existingUser = await getUserByEmail(userData.email)
@@ -65,16 +63,16 @@ export function registerAndAuthenticateUser(userData: IUserCreateData): Promise<
                 return
             }
 
-            const newUser = await userRepository.createUser(userData)
+            const newUser = await createUser(userData)
             console.log(`Создан новый пользователь: ${newUser.email}`)
             resolve(generateJWT(newUser))
         } catch (err) {
             reject(err)
         }
-    });
+    })
 }
 
-export function generateJWT(user: IUser): string {
+export function generateJWT(user: User): string {
     const payload = { email: user.email, role: user.role }
     return jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
 }

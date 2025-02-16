@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { CreateCommentData, UpdateCommentData } from './ctypes'
 
 const prisma = new PrismaClient()
 
@@ -12,13 +13,13 @@ export async function getCommentById(id: number) {
   })
 }
 
-export async function createComment(data: { title: string; body: string; postId: number }) {
+export async function createComment(data: CreateCommentData){
   return await prisma.comment.create({
     data,
   })
 }
 
-export async function updateComment(id: number, data: { title?: string; body?: string }) {
+export async function updateComment(id: number, data: UpdateCommentData) {
   return await prisma.comment.update({
     where: { id },
     data,
