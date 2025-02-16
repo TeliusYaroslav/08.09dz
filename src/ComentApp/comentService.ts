@@ -1,5 +1,5 @@
 import * as commentRepository from './comentRepository'
-import { Comment, CreateCommentData, UpdateCommentData } from './ctypes'
+import { Comment, CreateCommentData, updateComment } from './ctypes'
 
 export async function getAllComments(): Promise<Comment[]> {
   return await commentRepository.getAllComments()
@@ -13,7 +13,7 @@ export async function createComment(data: CreateCommentData): Promise<Comment> {
   return await commentRepository.createComment(data)
 }
 
-export async function updateComment(id: number, data: UpdateCommentData): Promise<Comment | null> {
+export async function updateComment(id: number, data: updateComment): Promise<Comment | null> {
   return await commentRepository.updateComment(id, data)
 }
 

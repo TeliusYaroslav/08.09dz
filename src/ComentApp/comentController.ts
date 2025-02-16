@@ -29,7 +29,7 @@ export async function createComment(req: Request, res: Response) {
     res.status(201).json(newComment)
   } catch (error) {
     res.status(400).json({ message: 'Ошибка создания комментария', error })
-  }
+  } 
 }
 
 export async function updateComment(req: Request, res: Response) {
