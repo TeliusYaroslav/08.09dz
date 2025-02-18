@@ -6,11 +6,18 @@ import postRouter from './PostsApp/postRouter'
 import authMiddleware from './middlewares/authMiddleware' 
 import userRoleMiddleware from './middlewares/userRoleMiddleware' 
 import commentRouter from './ComentApp/comentRouter'
+import cors from "cors"
+import PostRouterApi from "./PostsApp/PostRouterApi"
+
+
 
 const app: Express = express() 
 const HOST: string = 'localhost' 
-const PORT: number = 8000 
+const PORT: number = 8001 
 
+app.use(cors({
+    origin : ["http://localhost:3000"]
+}))
 
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true })) 
@@ -28,6 +35,37 @@ app.use('/users', userRouter)
 app.use('/', userRouter) 
 app.use('/posts', authMiddleware, postRouter) 
 app.use('/comments', commentRouter)
+app.use("/api/posts/", PostRouterApi)
+app.use("/api/posts/:id", PostRouterApi)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/profile', authMiddleware, (req: Request, res: Response) => {
     const user = (req as any).user 
