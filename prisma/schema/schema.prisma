@@ -22,4 +22,6 @@ model Posts {
   userId      Int?  
   user        User? @relation("UserPosts", fields: [userId], references: [id]) 
   comments    Comment[]
+  categoryId  Int?  
+  category    Category? @relation(fields: [categoryId], references: [id])
 }
