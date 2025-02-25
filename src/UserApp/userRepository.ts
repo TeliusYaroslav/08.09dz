@@ -7,7 +7,7 @@ export async function findByEmail(email: string): Promise<User | null> {
     }
     const user = await client.user.findUnique({
         where: { email },
-    });
+    })
     return user ? (user as User) : null
 }
 

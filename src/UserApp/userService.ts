@@ -13,17 +13,17 @@ export function getUserByEmail(email: string): Promise<User | null> {
         }
 
         try {
-            const user = await findByEmail(email);
+            const user = await findByEmail(email)
             if (!user) {
-                console.log('Пользователь не найден');
+                console.log('Пользователь не найден')
             } else {
-                console.log(`Найден пользователь: ${user.email}`);
+                console.log(`Найден пользователь: ${user.email}`)
             }
             resolve(user)
         } catch (err) {
             reject(err)
         }
-    });
+    })
 }
 
 export function authenticateUser(email: string, password: string): Promise<string> {
@@ -49,7 +49,7 @@ export function authenticateUser(email: string, password: string): Promise<strin
         } catch (err) {
             reject(err)
         }
-    });
+    })
 }
 
 export function registerAndAuthenticateUser(userData: CreateUserData): Promise<string> {

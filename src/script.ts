@@ -9,6 +9,7 @@ import commentRouter from './ComentApp/comentRouter'
 import cors from "cors"
 import PostRouterApi from "./PostsApp/PostRouterApi"
 import categoryRouterApi from "./CategoryApp/categoryRouterApi"
+import userRouterApi from "./UserApp/userRouterApi"
 
 
 
@@ -39,6 +40,7 @@ app.use('/comments', commentRouter)
 app.use("/api/posts/", PostRouterApi)
 app.use("/api/posts/:id", PostRouterApi)
 app.use("/api/categories", categoryRouterApi)
+app.use("/api/users", userRouterApi)
 
 
 
