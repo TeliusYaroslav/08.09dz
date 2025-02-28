@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import * as userService from "./userService"
-
+// Лишние пустые строки
 
 export async function loginUser(req: Request, res: Response) {
     res.render('login');
@@ -60,6 +60,7 @@ export async function authRegistration(req: Request, res: Response) {
         const token = await userService.registerAndAuthenticateUser({ username, email, password, role })
         res.cookie('token', token, { httpOnly: true })
         res.status(201).json({ token })
+        // any
     } catch (error: any) {
         console.error('Ошибка при регистрации:', error)
         res.status(error.status || 500).json({ message: error.message || 'Internal Server Error' })

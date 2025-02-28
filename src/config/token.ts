@@ -1,1 +1,1 @@
-export const SECRET_KEY = "very_big_sicret"
+export const SECRET_KEY = "very_big_sicret" // перенести в .env

@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client"
+// Импорт не используется, нужно убрать
 import { CreateCommentData } from "../ComentApp/ctypes"
+// Импорт не используется, нужно убрать
 import { CreatePostData, Posts } from "./ptypes"
+// Здесь это не надо. У тебя есть файл prismaClient с клиентом
 const prisma = new PrismaClient()
 
 export async function getAllPosts() {
@@ -32,3 +35,6 @@ export async function createPost(postData: CreatePostData) {
       include: { comments: true },
     })
   }
+
+// try...catch в принципе нет ни в одном из слоев.
+// при любой ошибке призмы сервер завершится  

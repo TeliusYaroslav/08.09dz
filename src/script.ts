@@ -1,3 +1,4 @@
+// NextFunction не используешь
 import express, { Express, Request, Response, NextFunction } from "express" 
 import cookieParser from 'cookie-parser' 
 import path from "path" 
@@ -32,45 +33,24 @@ app.set("views", path.resolve(__dirname, "./templates"))
 
 app.use("/static/", express.static(path.resolve(__dirname, "./static"))) 
 
-
+// прописывай слеши в конце пути тоже
+// /users/, /posts/
+// неправильное использование роутера для user 
+// один лишний
 app.use('/users', userRouter) 
-app.use('/', userRouter) 
+app.use('/', userRouter)
 app.use('/posts', authMiddleware, postRouter) 
+// Комменты работают как API, но подключаются как обычные ссылки с шаблонизатором
 app.use('/comments', commentRouter)
+// Тут тоже неправильно используешь, оставляешь просто /api/posts/ 
 app.use("/api/posts/", PostRouterApi)
 app.use("/api/posts/:id", PostRouterApi)
 app.use("/api/categories", categoryRouterApi)
 app.use("/api/users", userRouterApi)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/profile', authMiddleware, (req: Request, res: Response) => {
+    // any не используем
     const user = (req as any).user 
     res.send(`Welcome to your profile, ${user.email}!`) 
 }) 

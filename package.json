@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/script.js",
+    
+    "start": "node src/script.js", 
     "new": "ts-node src/script.ts",
     "databasetest": "ts-node prisma/seed.ts"
   },

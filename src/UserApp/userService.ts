@@ -1,12 +1,18 @@
 import { User, CreateUserData } from './utype'
+// так импортировать, конечно, не очень, старайся импортировать то, что тебе надо {sign}
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config/token'
 import { findByEmail, createUser } from './userRepository'
 
 export function getUserByEmail(email: string): Promise<User | null> {
+    // Не понял смысла промиса? избавится от ассинхронности?
+    // Она специально в JS/TS реализуется очень легко, поэтому такой промис очень сильно бьет по чиатемости кода
     return new Promise(async (resolve, reject) => {
+        // слишком много однотипных проверок(в контроллере уже есть)
         if (!email) {
+            // не понятно зачем этот костыль
             const error = new Error('Требуется электронная почта') as Error & { status?: number }
+            // Сервис в принципе не должен составлять какие то коды для клиента
             error.status = 400
             reject(error)
             return
@@ -25,7 +31,7 @@ export function getUserByEmail(email: string): Promise<User | null> {
         }
     })
 }
-
+// все что написано выше применимо и ниже
 export function authenticateUser(email: string, password: string): Promise<string> {
     return new Promise(async (resolve, reject) => {
         try {

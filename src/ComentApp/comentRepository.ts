@@ -1,8 +1,10 @@
+// Здесь это не надо
 import { PrismaClient } from '@prisma/client'
 import { CreateCommentData, updateComment } from './ctypes'
-
+// Здесь это не надо. У тебя есть файл prismaClient с клиентом
 const prisma = new PrismaClient()
 
+// Соблюдай одинаковые табуляции по коду, где то 2, где то 4
 export async function getAllComments() {
   return await prisma.comment.findMany()
 }

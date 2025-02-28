@@ -1,10 +1,11 @@
+// лучше просто импортировать {Router}
 import express from 'express'
 import { loginUser, authRegistration } from './userControllerApi'
 
 const router = express.Router()
 
-
-router.post('/logincrypt', loginUser)
+// сrypt?
+router.post('/login', loginUser)
 
 router.post('/registercrypt', authRegistration)
 

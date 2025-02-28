@@ -1,5 +1,6 @@
 import { Request, Response } from "express" 
 import * as postService from "./postServices" 
+// Импорт не используется, нужно убрать
 import { Posts } from "@prisma/client"
 
 export async function getPosts(req: Request, res: Response) {

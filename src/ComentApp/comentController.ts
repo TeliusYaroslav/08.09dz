@@ -48,6 +48,7 @@ export async function deleteComment(req: Request, res: Response) {
   try {
     const { id } = req.params
     await commentService.deleteComment(Number(id))
+    // пусто?
     res.status(204).send()
   } catch (error) {
     res.status(500).json({ message: 'Ошибка удаления комментария', error })

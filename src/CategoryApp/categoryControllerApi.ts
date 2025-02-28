@@ -1,14 +1,16 @@
 import { Request, Response } from "express"
 import * as categoryService from "./categoryService"
 
+// В types
 interface CreateCategoryData {
   name: string;
 }
-
+// Типизация контроллера Promise<void> не имеет смысла
 async function getAllCategories(req: Request, res: Response): Promise<void> {
   try {
     const categories = await categoryService.getAllCategories()
     res.json(categories)
+    // unknown?
   } catch (error: unknown) {
     if (error instanceof Error) {
       res.status(500).json( { message: error.message })
@@ -35,7 +37,12 @@ async function getCategoryById(req: Request, res: Response) {
     }
   }
 }
-async function createCategory(req: Request< CreateCategoryData>, res: Response): Promise<void> {
+// Request типизация
+// Первый параметр — тип для параметров маршрута (req.params).
+// Второй параметр — тип для возвращаемого тела ответа (res.body).
+// Третий параметр — тип для тела запроса (req.body).
+// Четвёртый параметр — тип для строки запроса (req.query).
+async function createCategory(req: Request<{},{}, CreateCategoryData>, res: Response): Promise<void> {
   try {
     const { name } = req.body
     const category = await categoryService.createCategory({ name })
@@ -49,7 +56,7 @@ async function createCategory(req: Request< CreateCategoryData>, res: Response):
   }
 }
 
-async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, res: Response) {
+async function updateCategory(req: Request<{ id: string }, {}, CreateCategoryData>, res: Response) {
   try {
     const { id } = req.params
     const data = req.body
@@ -80,7 +87,7 @@ async function deleteCategory(req: Request<{ id: string }, {}, {}>, res: Respons
     }
   }
 }
-
+// где то экспортируешь функции, здесь объект. Выдели один стиль кода
 const categoryControllerApi = {getAllCategories , getCategoryById ,createCategory , updateCategory ,deleteCategory}
 
 export default categoryControllerApi

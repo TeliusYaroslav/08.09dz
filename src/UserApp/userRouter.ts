@@ -1,3 +1,4 @@
+// лучше просто импортировать {Router}
 import express from 'express'
 import { loginUser, registrationUser, authUser, authRegistration } from './userController'
 

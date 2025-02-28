@@ -1,5 +1,5 @@
 import { PrismaClient, Prisma } from "@prisma/client"
-
+// Здесь это не надо. У тебя есть файл prismaClient с клиентом
 const prisma = new PrismaClient()
 
 export async function getAllCategories() {
