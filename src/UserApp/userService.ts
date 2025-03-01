@@ -1,7 +1,7 @@
-import { User, CreateUserData } from './utype'
+import { User, CreateUserData, UserWithoutPassword } from './utype'
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config/token'
-import { findByEmail, createUser } from './userRepository'
+import { findByEmail, createUser, getUserById } from './userRepository'
 
 export function getUserByEmail(email: string): Promise<User | null> {
     return new Promise(async (resolve, reject) => {
@@ -75,4 +75,14 @@ export function registerAndAuthenticateUser(userData: CreateUserData): Promise<s
 export function generateJWT(user: User): string {
     const payload = { email: user.email, role: user.role }
     return jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' })
+}
+
+
+export async function getUserDataById(userId: number): Promise<UserWithoutPassword> {
+    const user = await getUserById(userId)
+    if (!user) {
+        throw new Error("Пользователь не найден")
+    }
+    const { password, ...userWithoutPassword } = user
+    return userWithoutPassword
 }

@@ -9,4 +9,6 @@ router.get('/register', registrationUser)
 router.post('/login', authUser)
 router.post('/register', authRegistration)
 
+
+
 export default router

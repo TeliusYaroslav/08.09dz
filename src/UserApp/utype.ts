@@ -5,3 +5,12 @@ export type CreateUserData = Prisma.UserUncheckedCreateInput
 
 
 
+
+
+  export interface UserWithoutPassword {
+    id: number
+    username: string
+    email: string
+    role: string
+  }
+  

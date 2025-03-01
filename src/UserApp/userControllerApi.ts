@@ -1,6 +1,10 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import * as userService from './userService'
 import bcrypt from 'bcryptjs'
+
+import { getUserByEmail, getUserDataById } from './userService'
+import { AuthRequest } from '../middlewares/authTokenMiddleware'
+
 
 export async function loginUser(req: Request, res: Response) {
     const { email, password } = req.body
@@ -51,5 +55,23 @@ export async function authRegistration(req: Request, res: Response) {
         res.status(201).json({ token })
     } catch (error: any) {
         res.status(error.status || 500).json({ message: error.message || 'Internal Server Error' })
+    }
+}
+
+
+export async function getCurrentUser(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+        if (!req.user?.userId) {
+            res.status(401).json({ message: 'Пользователь не аутентифицирован' })
+            return
+        }
+        const user = await getUserDataById(req.user.userId)
+        if (!user) {
+            res.status(404).json({ message: 'Пользователь не найден' })
+            return
+        }
+        res.json(user)
+    } catch (error) {
+        next(error)
     }
 }

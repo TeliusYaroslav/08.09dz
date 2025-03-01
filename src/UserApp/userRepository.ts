@@ -22,3 +22,15 @@ export async function createUser(data: CreateUserData): Promise<User> {
     })
     return user as User
 }
+
+
+
+
+
+export async function getUserById(userId: number): Promise<User | null> {
+    const user = await client.user.findUnique({
+        where: { id: userId },
+    })
+
+    return user || null
+}
