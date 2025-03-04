@@ -2,10 +2,10 @@ import { Request, Response } from "express"
 import * as categoryService from "./categoryService"
 
 interface CreateCategoryData {
-  name: string;
+  name: string
 }
 
-export async function getAllCategories(req: Request, res: Response): Promise<void> {
+export async function getAllCategories(req: Request, res: Response){
   try {
     const categories = await categoryService.getAllCategories()
     res.render('categories', { categories })
@@ -18,7 +18,7 @@ export async function getAllCategories(req: Request, res: Response): Promise<voi
   }
 }
 
-export async function getCategoryById(req: Request, res: Response): Promise<void> {
+export async function getCategoryById(req: Request, res: Response){
   try {
     const { id } = req.params
     const category = await categoryService.getCategoryById(Number(id))
@@ -36,7 +36,7 @@ export async function getCategoryById(req: Request, res: Response): Promise<void
   }
 }
 
-export async function createCategory(req: Request< CreateCategoryData>, res: Response): Promise<void> {
+export async function createCategory(req: Request< CreateCategoryData>, res: Response){
   try {
     const { name } = req.body
     const category = await categoryService.createCategory({ name })
@@ -50,7 +50,7 @@ export async function createCategory(req: Request< CreateCategoryData>, res: Res
   }
 }
 
-export async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, res: Response): Promise<void> {
+export async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, res: Response){
   try {
     const { id } = req.params
     const data = req.body
@@ -68,7 +68,7 @@ export async function updateCategory(req: Request<{ id: string }, CreateCategory
   }
 }
 
-export async function deleteCategory(req: Request<{ id: string }, {}, {}>, res: Response): Promise<void> {
+export async function deleteCategory(req: Request<{ id: string }>, res: Response){
   try {
     const { id } = req.params
     await categoryService.deleteCategory(Number(id))

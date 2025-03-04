@@ -5,7 +5,7 @@ interface CreateCategoryData {
   name: string;
 }
 
-async function getAllCategories(req: Request, res: Response): Promise<void> {
+export async function getAllCategories(req: Request, res: Response) {
   try {
     const categories = await categoryService.getAllCategories()
     res.json(categories)
@@ -18,7 +18,7 @@ async function getAllCategories(req: Request, res: Response): Promise<void> {
   }
 }
 
-async function getCategoryById(req: Request, res: Response) {
+export async function getCategoryById(req: Request, res: Response) {
   try {
     const { id } = req.params
     const category = await categoryService.getCategoryById(Number(id))
@@ -35,7 +35,7 @@ async function getCategoryById(req: Request, res: Response) {
     }
   }
 }
-async function createCategory(req: Request< CreateCategoryData>, res: Response): Promise<void> {
+export async function createCategory(req: Request< CreateCategoryData>, res: Response){
   try {
     const { name } = req.body
     const category = await categoryService.createCategory({ name })
@@ -49,7 +49,7 @@ async function createCategory(req: Request< CreateCategoryData>, res: Response):
   }
 }
 
-async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, res: Response) {
+export async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, res: Response) {
   try {
     const { id } = req.params
     const data = req.body
@@ -67,7 +67,7 @@ async function updateCategory(req: Request<{ id: string }, CreateCategoryData>, 
   }
 }
 
-async function deleteCategory(req: Request<{ id: string }, {}, {}>, res: Response) {
+export async function deleteCategory(req: Request<{ id: string }>, res: Response) {
   try {
     const { id } = req.params
     await categoryService.deleteCategory(Number(id))
@@ -81,6 +81,3 @@ async function deleteCategory(req: Request<{ id: string }, {}, {}>, res: Respons
   }
 }
 
-const categoryControllerApi = {getAllCategories , getCategoryById ,createCategory , updateCategory ,deleteCategory}
-
-export default categoryControllerApi

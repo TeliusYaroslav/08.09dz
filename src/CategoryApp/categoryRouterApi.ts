@@ -1,5 +1,5 @@
 import express from "express"
-import categoryControllerApi from "./categoryControllerApi"
+import * as categoryControllerApi from "./categoryControllerApi"
 
 const router = express.Router()
 

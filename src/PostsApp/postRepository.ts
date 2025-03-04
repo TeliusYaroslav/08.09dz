@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client"
-import { CreateCommentData } from "../ComentApp/ctypes"
-import { CreatePostData, Posts } from "./ptypes"
+import { CreatePostData} from "./ptypes"
 const prisma = new PrismaClient()
 
 export async function getAllPosts() {

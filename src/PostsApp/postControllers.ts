@@ -1,6 +1,5 @@
 import { Request, Response } from "express" 
 import * as postService from "./postServices" 
-import { Posts } from "@prisma/client"
 
 export async function getPosts(req: Request, res: Response) {
     try {

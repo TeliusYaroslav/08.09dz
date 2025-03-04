@@ -1,17 +1,17 @@
-import { User, CreateUserData} from './utype'
-import {client } from "../client/prismaClient"
+import { User, CreateUserData } from './utype'
+import { client } from "../client/prismaClient"
 
-export async function findByEmail(email: string): Promise<User | null> {
+export async function findByEmail(email: string){
     if (!email) {
         throw new Error('Email is required')
     }
     const user = await client.user.findUnique({
         where: { email },
     })
-    return user ? (user as User) : null
+    return user ? (user) : null
 }
 
-export async function createUser(data: CreateUserData): Promise<User> {
+export async function createUser(data: CreateUserData){
     const user = await client.user.create({
         data: {
             username: data.username,
@@ -20,14 +20,10 @@ export async function createUser(data: CreateUserData): Promise<User> {
             role: 'user',
         },
     })
-    return user as User
+    return user
 }
 
-
-
-
-
-export async function getUserById(userId: number): Promise<User | null> {
+export async function getUserById(userId: number){
     const user = await client.user.findUnique({
         where: { id: userId },
     })

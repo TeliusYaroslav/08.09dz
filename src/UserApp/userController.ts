@@ -1,29 +1,13 @@
 import { Request, Response } from 'express'
 import * as userService from "./userService"
 
-
 export async function loginUser(req: Request, res: Response) {
-    res.render('login');
+    res.render('login')
 }
-
-
-
-
-
-
-
 
 export async function registrationUser(req: Request, res: Response) {
-    res.render('registration');
+    res.render('registration')
 }
-
-
-
-
-
-
-
-
 
 export async function authUser(req: Request, res: Response) {
     const { email, password } = req.body

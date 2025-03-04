@@ -5,4 +5,4 @@ export type Comment = Prisma.CommentGetPayload<{}>
 export type CreateCommentData = Prisma.CommentUncheckedCreateInput
 
 
-export type updateComment = Prisma.CommentUpdateInput
+export type UpdateComment = Prisma.CommentUpdateInput

@@ -1,10 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import * as userService from './userService'
-import bcrypt from 'bcryptjs'
-
-import { getUserByEmail, getUserDataById } from './userService'
+import {getUserDataById } from './userService'
 import { AuthRequest } from '../middlewares/authTokenMiddleware'
-
+import bcrypt from 'bcryptjs'
 
 export async function loginUser(req: Request, res: Response) {
     const { email, password } = req.body

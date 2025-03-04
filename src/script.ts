@@ -34,13 +34,12 @@ app.use("/static/", express.static(path.resolve(__dirname, "./static")))
 
 
 app.use('/users', userRouter) 
-app.use('/', userRouter) 
-app.use('/posts', authMiddleware, postRouter) 
-app.use('/comments', commentRouter)
+app.use('/posts/', authMiddleware, postRouter) 
+app.use('/comments/', commentRouter)
 app.use("/api/posts/", PostRouterApi)
-app.use("/api/posts/:id", PostRouterApi)
-app.use("/api/categories", categoryRouterApi)
-app.use("/api/users", userRouterApi)
+app.use("/api/posts/", PostRouterApi)
+app.use("/api/categories/", categoryRouterApi)
+app.use("/api/users/", userRouterApi)
 
 
 

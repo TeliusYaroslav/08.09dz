@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { CreateCommentData, updateComment } from './ctypes'
+import { CreateCommentData, UpdateComment } from './ctypes'
 
 const prisma = new PrismaClient()
 
@@ -19,7 +19,7 @@ export async function createComment(data: CreateCommentData){
   })
 }
 
-export async function updateComment(id: number, data: updateComment) {
+export async function updateComment(id: number, data: UpdateComment) {
   return await prisma.comment.update({
     where: { id },
     data,
