@@ -1,38 +1,38 @@
-import { PrismaClient } from '@prisma/client'
 import { CreateCommentData, UpdateComment } from './ctypes'
+import { client } from '../client/prismaClient'
 
-const prisma = new PrismaClient()
+
 
 export async function getAllComments() {
-  return await prisma.comment.findMany()
+  return await client.comment.findMany()
 }
 
 export async function getCommentById(id: number) {
-  return await prisma.comment.findUnique({
+  return await client.comment.findUnique({
     where: { id },
   })
 }
 
 export async function createComment(data: CreateCommentData){
-  return await prisma.comment.create({
+  return await client.comment.create({
     data,
   })
 }
 
 export async function updateComment(id: number, data: UpdateComment) {
-  return await prisma.comment.update({
+  return await client.comment.update({
     where: { id },
     data,
   })
 }
 
 export async function deleteComment(id: number) {
-  return await prisma.comment.delete({
+  return await client.comment.delete({
     where: { id },
   })
 }
 export async function getCommentsByPostId(postId: number) {
-  return await prisma.comment.findMany({
+  return await client.comment.findMany({
       where: { postId },
   })
 }

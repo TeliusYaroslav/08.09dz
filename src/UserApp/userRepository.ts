@@ -1,4 +1,4 @@
-import { User, CreateUserData } from './utype'
+import { CreateUserData } from './utype'
 import { client } from "../client/prismaClient"
 
 export async function findByEmail(email: string){
